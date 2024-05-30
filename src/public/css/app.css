@@ -1,0 +1,95 @@
+.container {
+    background-color: #f2f2f2;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+    width: calc(100% - 64px);
+    margin: 0 auto;
+    font-size: 32px;
+    color: blue;
+}
+
+.header-content {
+    display: flex;
+    position: relative;
+    top: 16px;
+    align-items: center;
+}
+
+.header-ttl {
+    margin-left: 16px;
+}
+
+#open,
+#close {
+    background-color: blue;
+    color: #f2f2f2;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+#close {
+    display: inline-block;
+    position: relative;
+    top: 16px;
+}
+
+#modal {
+    width: calc(100% - 64px);
+    height: 600px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    transition: transform 0.2s;
+    background-color: #f2f2f2;
+    z-index: 2;
+}
+
+#mask {
+    background-color: #f2f2f2;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+}
+
+
+#modal.hidden {
+    transform: translate(0, -600px);
+}
+
+#mask.hidden {
+    display: none;
+}
+
+.header-nav {
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.header-nav-list {
+    text-align: center;
+    height: 200px;
+}
+
+.header-nav-item a {
+    color: blue;
+    text-decoration: none;
+    margin: 32px;
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+}
