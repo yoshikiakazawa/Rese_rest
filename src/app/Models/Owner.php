@@ -14,7 +14,7 @@ class Owner extends Authenticatable
 
     protected $fillable = [
         'ownerid',
-        'shop_name',
+        'name',
         'password',
     ];
 
