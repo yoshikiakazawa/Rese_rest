@@ -13,8 +13,8 @@ class Owner extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'name',
         'ownerid',
+        'shop_name',
         'password',
     ];
 
