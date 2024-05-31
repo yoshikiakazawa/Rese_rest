@@ -15,7 +15,7 @@ class CreateOwnersTable extends Migration
     {
         Schema::create('owners', function (Blueprint $table) {
             $table->id();
-            $table->string('ownerid')->minLength(8);
+            $table->string('ownerid')->minLength(8)->unique();
             $table->string('name')->nullable();
             $table->string('password')->minLength(8);
             $table->rememberToken();
