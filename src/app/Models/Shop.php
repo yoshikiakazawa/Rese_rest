@@ -17,7 +17,7 @@ class Shop extends Model
 
     public function areas()
     {
-        return $this->belongsTo(Region::class, "area_id");
+        return $this->belongsTo(Area::class, "area_id");
     }
 
     public function genres()
