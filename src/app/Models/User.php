@@ -44,11 +44,11 @@ class User extends Authenticatable
 
     public function reservations()
     {
-        return $this->hasMany(Reservation::class, 'region_id');
+        return $this->hasMany(Reservation::class, 'user_id');
     }
 
     public function favorites()
     {
-        return $this->hasMany(Favorite::class, 'favorite_id');
+        return $this->hasMany(Favorite::class, 'user_id');
     }
 }

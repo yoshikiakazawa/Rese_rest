@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Shop extends Model
 {
     use HasFactory;
-    protected $fillable = ['owner_id', 'shop_name', 'region_id', 'genre_id', 'overview', 'path'];
+    protected $fillable = ['owner_id', 'shop_name', 'area_id', 'genre_id', 'overview', 'path'];
 
     public function owners()
     {
         return $this->belongsTo(Owner::class, "owner_id");
     }
 
-    public function regions()
+    public function areas()
     {
-        return $this->belongsTo(Region::class, "region_id");
+        return $this->belongsTo(Region::class, "area_id");
     }
 
     public function genres()
@@ -27,11 +27,11 @@ class Shop extends Model
 
     public function reservations()
     {
-        return $this->hasMany(Reservation::class, 'region_id');
+        return $this->hasMany(Reservation::class, 'shop_id');
     }
 
     public function favorites()
     {
-        return $this->hasMany(Favorite::class, 'favorite_id');
+        return $this->hasMany(Favorite::class, 'shop_id');
     }
 }
