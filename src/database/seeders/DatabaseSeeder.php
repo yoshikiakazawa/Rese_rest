@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Owner::factory(5)->create();
-        $this->call(RegionsTableSeeder::class);
+        $this->call(AreasTableSeeder::class);
         $this->call(GenresTableSeeder::class);
         $this->call(ShopsTableSeeder::class);
     }

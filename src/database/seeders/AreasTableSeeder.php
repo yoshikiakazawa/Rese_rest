@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 
-class RegionsTableSeeder extends Seeder
+class AreasTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -27,7 +27,7 @@ class RegionsTableSeeder extends Seeder
         ];
 
         foreach ($prefectures as $prefecture) {
-            DB::table('regions')->insert([
+            DB::table('areas')->insert([
                 'name' => $prefecture,
                 'created_at' => Carbon::now(),
             ]);
