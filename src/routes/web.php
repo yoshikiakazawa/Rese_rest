@@ -23,9 +23,9 @@ Route::middleware('auth')->group(function () {
 
 // Route::get('/register/thanks', [AuthController::class,'register_thanks']);
 
-Route::get('/register/thanks', function () {
+Route::get('/thanks', function () {
     return view('auth.register_thanks');
-})->name('register_thanks');
+})->name('thanks');
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
     ->middleware(['guest', 'redirect.if.registered'])

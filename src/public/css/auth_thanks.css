@@ -16,6 +16,16 @@
     position: relative;
 }
 
+@media screen and (max-width: 650px) {
+    .auth {
+        grid-template-rows: 80px 400px;
+    }
+
+    .auth-parent {
+        width: 80%;
+    }
+}
+
 .auth__content {
     background-color: #F2F2F2;
     position: absolute;
@@ -45,4 +55,14 @@
     padding: 8px 20px;
     border-radius: 4px;
     cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+    .auth-parent {
+        width: 90%;
+    }
+
+    .auth__content p {
+        font-size: 18px;
+    }
 }

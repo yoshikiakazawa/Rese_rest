@@ -19,7 +19,7 @@ class RedirectIfRegistered
     {
         $response = $next($request);
         if (Auth::check() && $request->is('register')) {
-            return redirect()->route('register_thanks');
+            return redirect()->route('thanks');
         }
 
         return $response;

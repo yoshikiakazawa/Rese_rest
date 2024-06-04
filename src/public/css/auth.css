@@ -16,6 +16,30 @@
     position: relative;
 }
 
+@media screen and (max-width: 950px) {
+    .auth-parent {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .auth-parent {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .auth-parent {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .auth-parent {
+        width: 90%;
+    }
+}
+
 .auth-form {
     background-color: #F2F2F2;
     position: absolute;
@@ -65,9 +89,16 @@ img {
 .auth-form__content--error {
     height: 20px;
     text-align: right;
-    margin-right: 16px;
+    margin-right: 20px;
     color: tomato;
-    font-size: 12px;
+    font-size: 14px;
+}
+
+@media screen and (max-width: 550px) {
+    .auth-form__content--error {
+        margin-right: 10px;
+        font-size: 12px;
+    }
 }
 
 .auth-form__content--btn {
