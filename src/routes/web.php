@@ -16,3 +16,5 @@ use App\Http\Controllers\ShopController;
 */
 
 Route::get('/', [ShopController::class,'index']);
+Route::get('/search', [ShopController::class,'search']);
+Route::post('/toggle-favorite', [ShopController::class,'toggleFavorite']);
