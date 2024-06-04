@@ -14,7 +14,9 @@ use App\Http\Controllers\ShopController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::middleware('auth')->group(function () {
+    Route::get('/', [ShopController::class,'index']);
+    Route::get('/search', [ShopController::class,'search']);
+    Route::post('/toggle-favorite', [ShopController::class,'toggleFavorite']);
+});
 
-Route::get('/', [ShopController::class,'index']);
-Route::get('/search', [ShopController::class,'search']);
-Route::post('/toggle-favorite', [ShopController::class,'toggleFavorite']);

@@ -4,8 +4,8 @@
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 @endsection
 
-@section('content')
-{{-- @if( Auth::check() ) --}}
+@section('main')
+@if( Auth::check() )
 @component('components.nav')
 @endcomponent
 <div class="content">
@@ -60,11 +60,11 @@
             <script src="js/heart.js"></script>
         </div>
     </div>
-    {{-- @endif --}}
 </div>
 <div class="error__message">
     @if(isset($message))
     {{ $message }}
 </div>
+@endif
 @endif
 @endsection
