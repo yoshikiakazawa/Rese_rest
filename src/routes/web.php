@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ShopController;
+use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/toggle-favorite', [ShopController::class,'toggleFavorite']);
 });
 
+// Route::get('/register/thanks', [AuthController::class,'register_thanks']);
+
+Route::get('/register/thanks', function () {
+    return view('auth.register_thanks');
+})->name('register_thanks');
+
+Route::post('/register', [RegisteredUserController::class, 'store'])
+    ->middleware(['guest', 'redirect.if.registered'])
+    ->name('register');

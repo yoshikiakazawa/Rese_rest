@@ -65,8 +65,9 @@ img {
 .auth-form__content--error {
     height: 20px;
     text-align: right;
-    margin-right: 32px;
+    margin-right: 16px;
     color: tomato;
+    font-size: 12px;
 }
 
 .auth-form__content--btn {

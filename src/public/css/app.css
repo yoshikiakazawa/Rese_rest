@@ -99,6 +99,7 @@ body {
     color: #387ADF;
     font-weight: bold;
     font-size: 32px;
+    cursor: pointer;
 }
 
 .content {
