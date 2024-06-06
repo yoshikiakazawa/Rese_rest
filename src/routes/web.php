@@ -15,13 +15,10 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware('auth')->group(function () {
-    Route::get('/', [ShopController::class,'index']);
-    Route::get('/search', [ShopController::class,'search']);
-    Route::post('/toggle-favorite', [ShopController::class,'toggleFavorite']);
-});
 
-// Route::get('/register/thanks', [AuthController::class,'register_thanks']);
+Route::get('/', [ShopController::class,'index']);
+Route::get('/search', [ShopController::class,'search']);
+Route::post('/toggle-favorite', [ShopController::class,'toggleFavorite']);
 
 Route::get('/thanks', function () {
     return view('auth.register_thanks');

@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Genre;
+use App\Models\Favorite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
 {
@@ -13,7 +16,11 @@ class ShopController extends Controller
         $shops = Shop::with(['areas', 'genres'])->get();
         $areas = Area::all();
         $genres = Genre::all();
-        return view('index', compact('shops', 'areas', 'genres'));
+        $favorites = [];
+        if (Auth::check()) {
+            $favorites = Favorite::where('user_id', Auth::id())->pluck('shop_id')->toArray();
+        }
+        return view('index', compact('shops', 'areas', 'genres', 'favorites'));
     }
 
     public function search(Request $request) {
@@ -42,38 +49,35 @@ class ShopController extends Controller
         $shops = $query->get();
         $areas = Area::all();
         $genres = Genre::all();
-
-        if ($shops->isEmpty()) {
-            return view('index', compact('shops', 'areas', 'genres'))->with('message', '検索結果がありません。');
+        $favorites = [];
+        if (Auth::check()) {
+            $favorites = Favorite::where('user_id', Auth::id())->pluck('shop_id')->toArray();
         }
 
-        return view('index', compact('shops', 'areas', 'genres'));
+        if ($shops->isEmpty()) {
+            return view('index', compact('shops', 'areas', 'genres', 'favorites'))->with('message', '検索結果がありません。');
+        }
+
+        return view('index', compact('shops', 'areas', 'genres', 'favorites'));
 
     }
     public function toggleFavorite(Request $request)
     {
-        $shopId = $request->input('shop_id');
-        $isFavorite = $request->input('is_favorite');
-
-        // ユーザーのIDを取得
         $userId = Auth::id();
-
-        // お気に入り状態をデータベースに保存
-        if ($isFavorite) {
-            // お気に入りに追加
-            DB::table('favorites')->insert([
+        $shopId = $request->input('shop_id');
+        $favorite = Favorite::where('user_id', $userId)
+            ->where('shop_id', $shopId)
+            ->first();
+            if ($favorite) {
+                $favorite->delete(); // お気に入りの解除
+                $isFavorite = false;
+            } else {
+            Favorite::create([
                 'user_id' => $userId,
-                'shop_id' => $shopId,
-                'created_at' => now(),
-                'updated_at' => now()
+                'shop_id' => $shopId
             ]);
-        } else {
-            // お気に入りから削除
-            DB::table('favorites')
-                ->where('user_id', $userId)
-                ->where('shop_id', $shopId)
-                ->delete();
+            $isFavorite = true;
         }
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true, 'is_favorite' => $isFavorite]);
     }
 }

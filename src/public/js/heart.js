@@ -1,36 +1,32 @@
 'use strict';
 {
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.heart_false, .heart_true').forEach(function (heart) {
-            heart.addEventListener('click', function () {
-                let isFavorite = heart.classList.contains('heart_true');
-                let shopId = heart.getAttribute('data-shop-id'); // ショップIDを取得する
+    document.querySelectorAll('.heart_false, .heart_true').forEach((heart) => {
+        heart.addEventListener('click', () => {
+            let isFavorite = heart.classList.contains('heart_true');
+            let shopId = heart.getAttribute('data-shop-id');
 
-                // お気に入りの状態を変更する
-                heart.classList.toggle('heart_true', !isFavorite);
-                heart.classList.toggle('heart_false', isFavorite);
-
-                // サーバーにリクエストを送信
-                fetch('/toggle-favorite', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({
-                        shop_id: shopId,
-                        is_favorite: !isFavorite
-                    })
+            fetch('/toggle-favorite', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    shop_id: shopId
                 })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (!data.success) {
-                            // エラーが発生した場合、状態を元に戻す
-                            heart.classList.toggle('heart_true', isFavorite);
-                            heart.classList.toggle('heart_false', !isFavorite);
-                        }
-                    });
-            });
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        heart.classList.toggle('heart_true', data.is_favorite);
+                        heart.classList.toggle('heart_false', !data.is_favorite);
+                    } else {
+                        console.error('Failed to toggle favorite status.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         });
     });
 }

@@ -102,9 +102,34 @@ body {
     cursor: pointer;
 }
 
-.content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 80px 1fr;
-    gap: 10px;
+@media screen and (max-width: 480px) {
+    .nav__content {
+        top: 16px;
+    }
+
+    #close {
+        top: 16px;
+    }
+
+    .nav__ttl {
+        font-size: 24px;
+    }
+
+    #open,
+    #close {
+        font-size: 18px;
+    }
+
+    .nav,
+    .modal__nav--button {
+        font-size: 24px;
+    }
+
+    #modal {
+        height: 400px;
+    }
+
+    #modal.hidden {
+        transform: translate(0, -400px);
+    }
 }

@@ -5,21 +5,25 @@
 @endsection
 
 @section('main')
-@if( Auth::check() )
+@if(Auth::check())
 @component('components.nav')
 @endcomponent
+@else
+@component('components.nav_auth')
+@endcomponent
+@endif
 <div class="content">
     <div class="content__search">
         <form class="search__form" action="/search" method="get">
-            <select class="search__form--select" name="area_id" id="area_id">
+            <select class="search__form--select-area" name="area_id" id="area_id">
                 <option value="" {{ request('area_id')=='' ? 'selected' : '' }}>All area</option>
                 @foreach ($areas as $area)
                 <option value="{{ $area->id }}" {{ request('area_id')==$area->id ? 'selected' : '' }}>{{ $area->name }}
                 </option>
                 @endforeach
             </select>
-            <span>|</span>
-            <select class="search__form--select" name="genre_id" id="genre_id">
+            <span class="search__form--span">|</span>
+            <select class="search__form--select-genre" name="genre_id" id="genre_id">
                 <option value="" {{ request('genre_id')=='' ? 'selected' : '' }}>
                     All genre</option>
                 @foreach ($genres as $genre)
@@ -27,7 +31,7 @@
                     }}</option>
                 @endforeach
             </select>
-            <span>|</span>
+            <span class="search__form--span">|</span>
             <button class="search__form--button">
                 <i class="bi bi-search" id="search"></i>
             </button>
@@ -51,8 +55,13 @@
                     </div>
                     <div class="card__button">
                         <a class="card__button--link" href="/">詳しくみる</a>
-                        <div class="heart_false" data-shop-id="{{ $shop->id }}"><i class="bi bi-suit-heart-fill"
-                                id="heart"></i></div>
+                        @if( Auth::check() )
+                        @php
+                        $isFavorite = in_array($shop->id, $favorites);
+                        @endphp
+                        <div class="heart {{ $isFavorite ? 'heart_true' : 'heart_false' }}"
+                            data-shop-id="{{ $shop->id }}"><i class="bi bi-suit-heart-fill" id="heart"></i></div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -65,6 +74,5 @@
     @if(isset($message))
     {{ $message }}
 </div>
-@endif
 @endif
 @endsection
