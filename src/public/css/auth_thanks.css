@@ -1,5 +1,5 @@
 .auth {
-    width: calc(100% - 32px);
+    width: calc(100% - 64px);
     max-width: 1230px;
     margin: 0 auto;
     display: grid;

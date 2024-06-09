@@ -7,7 +7,7 @@ body {
 }
 
 .nav {
-    width: calc(100% - 32px);
+    width: calc(100% - 64px);
     margin: 0 auto;
     font-size: 32px;
     color: #387ADF;

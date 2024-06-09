@@ -54,7 +54,7 @@
                         <p class="card__tag">#{{ $shop->areas->name }} #{{ $shop->genres->name }}</p>
                     </div>
                     <div class="card__button">
-                        <a class="card__button--link" href="/">詳しくみる</a>
+                        <a class="card__button--link" href="{{ route('detail', $shop->id) }}">詳しくみる</a>
                         @if( Auth::check() )
                         @php
                         $isFavorite = in_array($shop->id, $favorites);
@@ -66,13 +66,14 @@
                 </div>
             </div>
             @endforeach
-            <script src="js/heart.js"></script>
+            <script src="/js/heart.js"></script>
         </div>
     </div>
 </div>
 <div class="error__message">
     @if(isset($message))
     {{ $message }}
+    @endif
 </div>
-@endif
+
 @endsection

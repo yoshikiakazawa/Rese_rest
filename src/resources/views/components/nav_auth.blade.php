@@ -14,5 +14,5 @@
             </ul>
         </nav>
     </section>
-    <script src="js/nav.js"></script>
+    <script src="/js/nav.js"></script>
 </div>
