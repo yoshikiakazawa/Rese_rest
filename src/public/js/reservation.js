@@ -17,15 +17,6 @@
         timeInput.addEventListener('input', updateReservationData);
         numberInput.addEventListener('input', updateReservationData);
 
-        // Enterキーでフォームが送信されないようにする
-        formInputs.forEach(input => {
-            input.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter') {
-                    event.preventDefault();
-                }
-            });
-        });
-
         function updateReservationData() {
             document.querySelector('.reservation-data__table--text-date').textContent = dateInput.value;
             document.querySelector('.reservation-data__table--text-time').textContent = timeInput.value;
