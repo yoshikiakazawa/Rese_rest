@@ -28,7 +28,7 @@
             <p class="detail__overview--p">{{ $shop->overview }}</p>
         </div>
     </div>
-    <form class="reservation-form" action="/reservation" method="post">
+    <form class="reservation-form" action="/done" method="post">
         @csrf
         <div class="reservation-form__content">
             <div class="reservation-form__ttl">

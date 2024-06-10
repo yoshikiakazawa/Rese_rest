@@ -20,7 +20,7 @@ Route::get('/', [ShopController::class,'index']);
 Route::get('/detail/{shop_id}', [ShopController::class,'detail'])->name('detail');
 Route::get('/search', [ShopController::class,'search']);
 Route::post('/toggle-favorite', [ShopController::class,'toggleFavorite']);
-Route::post('/reservation', [ShopController::class,'reservation']);
+Route::post('/done', [ShopController::class,'reservation']);
 
 Route::get('/thanks', function () {
     return view('auth.register_thanks');
