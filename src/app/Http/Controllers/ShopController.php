@@ -6,6 +6,7 @@ use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Genre;
 use App\Models\Favorite;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -69,7 +70,7 @@ class ShopController extends Controller
             ->where('shop_id', $shopId)
             ->first();
             if ($favorite) {
-                $favorite->delete(); // お気に入りの解除
+                $favorite->delete();
                 $isFavorite = false;
             } else {
             Favorite::create([
@@ -79,5 +80,23 @@ class ShopController extends Controller
             $isFavorite = true;
         }
         return response()->json(['success' => true, 'is_favorite' => $isFavorite]);
+    }
+
+    public function detail($id)
+    {
+        $shop = Shop::findOrFail($id);
+
+        return view('detail', compact('shop'));
+    }
+
+    public function reservation(Request $request) {
+        Reservation::create([
+            'shop_id' => $request->shop_id,
+            'user_id' => Auth::id(),
+            'date' => $request->date,
+            'time' => $request->time,
+            'number' => $request->number,
+        ]);
+        return view('reservation_thanks');
     }
 }

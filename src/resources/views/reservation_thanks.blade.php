@@ -10,8 +10,7 @@
 <div class="thanks">
     <div class="thanks-parent">
         <div class="thanks__content">
-            <p>会員登録ありがとうございます</p>
-            <a href="/login">ログインする</a>
+            <p>ご予約ありがとうございます</p>
         </div>
     </div>
 </div>
