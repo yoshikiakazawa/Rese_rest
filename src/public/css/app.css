@@ -1,5 +1,5 @@
 body {
-    background-color: #F1F1F1;
+    background-color: rgb(238, 238, 238);
     width: 100vw;
     max-width: 1230px;
     margin: 0 auto;
@@ -49,12 +49,12 @@ body {
     right: 0;
     margin: 0 auto;
     transition: transform 0.2s;
-    background-color: #F1F1F1;
+    background-color: rgb(238, 238, 238);
     z-index: 2;
 }
 
 #mask {
-    background-color: #F1F1F1;
+    background-color: rgb(238, 238, 238);
     position: fixed;
     top: 0;
     bottom: 0;
@@ -102,17 +102,26 @@ body {
     cursor: pointer;
 }
 
-@media screen and (max-width: 480px) {
-    .nav__content {
-        top: 16px;
-    }
-
-    #close {
-        top: 16px;
+@media screen and (max-width: 768px) {
+    .nav {
+        width: calc(100% - 48px);
+        font-size: 28px;
     }
 
     .nav__ttl {
-        font-size: 24px;
+        margin-left: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    .nav {
+        width: calc(100% - 16px);
+        font-size: 18px;
+    }
+
+    .nav__ttl {
+        margin-left: 4px;
     }
 
     #open,

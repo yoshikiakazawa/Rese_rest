@@ -28,6 +28,7 @@
             <p class="detail__overview--p">{{ $shop->overview }}</p>
         </div>
     </div>
+    @if(Auth::check())
     <form class="reservation-form" action="/done" method="post">
         @csrf
         <div class="reservation-form__content">
@@ -70,9 +71,10 @@
             </div>
         </div>
         <div class="reservation-form__btn">
-            <button class="reservation-form__btn--submit" type="submit">送信</button>
+            <button class="reservation-form__btn--submit" type="submit">予約する</button>
         </div>
     </form>
+    @endif
 </div>
 <script src="/js/reservation.js" defer></script>
 @endsection

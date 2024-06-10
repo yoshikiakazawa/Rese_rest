@@ -12,6 +12,7 @@
     width: calc(100% - 32px);
     height: 100%;
     margin-top: 24px;
+    margin-right: auto;
 }
 
 .search__form {
@@ -22,7 +23,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: whitesmoke;
+    background-color: rgb(255, 255, 255);
 }
 
 .search__form--button,
@@ -32,7 +33,7 @@
     height: 80%;
     border-radius: 4px;
     border: none;
-    background-color: whitesmoke;
+    background-color: rgb(255, 255, 255);
     cursor: pointer;
     font-size: 14px;
     outline: none;
@@ -57,6 +58,7 @@
 .search__form--input {
     flex-grow: 1;
     padding-left: 8px;
+    width: 300px;
 }
 
 .search__form--span {
@@ -93,7 +95,7 @@
     width: 100%;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
     border-radius: 6px;
-    background-color: whitesmoke;
+    background-color: rgb(255, 255, 255);
 }
 
 img {
@@ -103,7 +105,7 @@ img {
 }
 
 .card__article {
-    width: calc(100% - 64px);
+    width: calc(100% - 32px);
     margin: auto;
 }
 
@@ -131,10 +133,11 @@ img {
     cursor: pointer;
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
     text-decoration: none;
+    font-size: 16px;
 }
 
 #heart {
-    font-size: 32px;
+    font-size: 28px;
     cursor: pointer;
 }
 
@@ -155,19 +158,16 @@ img {
 
 @media screen and (max-width: 768px) {
     .content {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 140px 1fr;
+        grid-template-rows: 80px 1fr;
     }
 
     .content__search {
-        grid-column: 2/4;
+        width: calc(100% - 24px);
     }
 
-    .card {
-        grid-column: 1/4;
-    }
-
-    #heart {
-        font-size: 24px;
+    .search__form--input {
+        width: 80px;
     }
 
     .search__form--button,
@@ -177,22 +177,8 @@ img {
         font-size: 12px;
     }
 
-    .search__form--span {
-        padding-left: 4px;
-    }
-
-    .search__form--select-area {
-        width: 70px;
-    }
-
-    .search__form--select-genre {
-        width: 80px;
-    }
-
-    .search__form--select-area,
-    .search__form--select-genre {
-        background-size: 10px 10px;
-        padding-left: 4px;
+    .card {
+        width: calc(100% - 48px);
     }
 
     .card-content {
@@ -201,7 +187,7 @@ img {
     }
 
     .card__article {
-        width: calc(100% - 32px);
+        width: calc(100% - 24px);
     }
 
     .card__ttl {
@@ -222,44 +208,23 @@ img {
         padding: 4px;
         font-size: 14px;
     }
-}
 
-@media screen and (max-width: 570px) {
-
-    .search__form--button,
-    .search__form--select-area,
-    .search__form--select-genre,
-    .search__form--input {
-        font-size: 10px;
+    #heart {
+        font-size: 24px;
     }
 
-    .search__form--select-area,
-    .search__form--select-genre {
-        background: url('/') no-repeat right center;
-    }
-
-    .search__form--select-area {
-        width: 60px;
-    }
-
-    .search__form--select-genre {
-        width: 60px;
-    }
 }
 
 @media screen and (max-width: 480px) {
 
     .content {
-        grid-template-columns: 1fr;
-        grid-template-rows: 50px 40px 1fr;
+        grid-template-columns: 100px 1fr;
+        grid-template-rows: 60px 1fr;
         gap: 8px;
     }
 
     .content__search {
-        grid-column: 1;
-        grid-row: 2/3;
-        width: calc(100% - 64px);
-        margin: 0 auto;
+        width: calc(100% - 8px);
     }
 
     .search__form {
@@ -270,9 +235,27 @@ img {
         font-size: 24px;
     }
 
+    .search__form--select-area {
+        width: 60px;
+    }
+
+    .search__form--select-genre {
+        width: 60px;
+    }
+
+    .search__form--input {
+        width: 60px;
+    }
+
+    .search__form--button,
+    .search__form--select-area,
+    .search__form--select-genre,
+    .search__form--input {
+        font-size: 10px;
+    }
+
     .card {
-        grid-column: 1;
-        grid-row: 3/4;
+        width: calc(100% - 16px);
     }
 
     .card-content {
@@ -281,8 +264,11 @@ img {
 
     .search__form--select-area,
     .search__form--select-genre {
-        background: url('/images/down.png') no-repeat right center;
-        background-size: 10px 10px;
+        background: url('/') no-repeat right center;
+    }
+
+    .card__article {
+        width: calc(100% - 16px);
     }
 
     .card__ttl {
