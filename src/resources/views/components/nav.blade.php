@@ -15,7 +15,7 @@
                         <button class="modal__nav--button">Logout</button>
                     </form>
                 </li>
-                <li class="modal__nav--item"><a href="/">Mypage</a></li>
+                <li class="modal__nav--item"><a href="/mypage">Mypage</a></li>
             </ul>
         </nav>
     </section>

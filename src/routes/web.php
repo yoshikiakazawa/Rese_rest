@@ -22,6 +22,14 @@ Route::get('/search', [ShopController::class,'search']);
 Route::post('/toggle-favorite', [ShopController::class,'toggleFavorite']);
 Route::post('/done', [ShopController::class,'reservation']);
 
+Route::middleware('auth')->group(function () {
+    Route::get('/mypage', [ShopController::class,'myPage']);
+    Route::patch('/update_reservation', [ShopController::class, 'updateReservation'])->name('update_reservation');
+    Route::delete('/delete_reservation',[ShopController::class, 'destroyReservation'])->name('delete_reservation');
+    Route::delete('/delete_favorite',[ShopController::class, 'destroyFavorite'])->name('delete_favorite');
+    Route::get('/mypage/history', [ShopController::class,'myPageHistory'])->name('history');
+});
+
 Route::get('/thanks', function () {
     return view('auth.register_thanks');
 })->name('thanks');
