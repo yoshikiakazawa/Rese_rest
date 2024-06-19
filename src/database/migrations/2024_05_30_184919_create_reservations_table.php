@@ -19,7 +19,9 @@ class CreateReservationsTable extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->date('date');
             $table->time('time');
-            $table->integer('number');
+            $table->string('number');
+            $table->integer('rank')->nullable();
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }
