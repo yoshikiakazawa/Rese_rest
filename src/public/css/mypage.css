@@ -203,8 +203,8 @@
 
 .qr-modal {
     display: none;
-    width: 350px;
-    height: 300px;
+    width: 150px;
+    height: 160px;
     background-color: #387ADF;
     color: rgb(255, 255, 255);
     position: fixed;
@@ -219,7 +219,7 @@
 
 .qr-modal__toggle:checked+.qr-modal {
     display: block;
-    padding: 24px;
+    padding: 10px;
     box-sizing: border-box;
 }
 
@@ -244,6 +244,12 @@
     cursor: pointer;
     color: rgb(255, 255, 255);
     font-size: 24px;
+}
+
+.qr-modal__span {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
 }
 
 @media screen and (max-width: 768px) {
@@ -271,6 +277,12 @@
     .reservation-status__table--header,
     .reservation-status__table--text {
         font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .qr-modal__button--open {
+        margin: 1em 2.5em 0;
     }
 }
 

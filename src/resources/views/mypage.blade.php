@@ -113,10 +113,11 @@
                 <label for="qr-modal__toggle-{{$reservation->id}}" class="qr-modal__button--open">チェックイン</label>
                 <input type="checkbox" id="qr-modal__toggle-{{$reservation->id}}" class="qr-modal__toggle">
                 <div class="qr-modal">
-                    <label for="qr-modal__toggle-{{$reservation->id}}" class="qr-modal__button--close"><i class="bi bi-x-circle"></i></label>
-
-
-
+                    <label for="qr-modal__toggle-{{$reservation->id}}" class="qr-modal__button--close"><i
+                            class="bi bi-x-circle"></i></label>
+                    <span class="qr-modal__span">
+                        {!! QrCode::size(100)->generate( $user->id/$reservation->id ); !!}
+                    </span>
                 </div>
             </div>
         </div>
