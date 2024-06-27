@@ -40,7 +40,7 @@ class FortifyServiceProvider extends ServiceProvider
             return view('auth.register');
         });
         app('router')->aliasMiddleware('registered', \App\Http\Middleware\RedirectIfRegistered::class);
-        
+
         Fortify::loginView(function () {
             return view('auth.login');
         });

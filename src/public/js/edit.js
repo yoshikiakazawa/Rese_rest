@@ -1,14 +1,9 @@
 'use strict';
 {
     document.addEventListener('DOMContentLoaded', () => {
-        const d = new Date();
         const dateInput = document.querySelector('#date');
         const timeInput = document.querySelector('#time');
         const numberInput = document.querySelector('#number');
-
-        const formattedDate = d.toISOString().split('T')[0];
-        console.log(formattedDate);
-        dateInput.value = formattedDate;
 
         updateReservationData();
         dateInput.addEventListener('input', updateReservationData);

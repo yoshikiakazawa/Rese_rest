@@ -9,12 +9,15 @@
 @component('components.nav')
 @endcomponent
 @endif
+@php
+use Carbon\Carbon;
+@endphp
 <div class="mypage__grid-parent">
     <div class="mypage__login-name">{{$user->name}}さん</div>
     <div class="reservation-status">
         <div class="reservation-status__ttl">
             <span>予約状況</span>
-            <span class="reservation-status__ttl--link">来店履歴は<a href="{{ route('history') }}">コチラ</a></span>
+            <span class="reservation-status__ttl--link">訪問履歴は<a href="{{ route('history') }}">コチラ</a></span>
         </div>
         @if ($reservations->isEmpty())
         <div class="reservation-status__ttl--empty-message">
@@ -29,53 +32,10 @@
         @foreach ($reservations as $index => $reservation)
         <div class="reservation-status__detail">
             <div class="reservation-status__detail--header">
-                <label for="modal-toggle-{{$reservation->id}}" class="reservation-status__modal--label"><i
-                        class="bi bi-pencil-square"></i></label>
-                <input type="checkbox" id="modal-toggle-{{$reservation->id}}" class="modal-toggle">
-                <div class="modal">
-                    <form action="{{route('update_reservation')}}" method="post">
-                        @method('PATCH')
-                        @csrf
-                        <input type="hidden" name="id" value="{{$reservation->id}}">
-                        <table class="reservation-status__modal--table">
-                            <tr class="reservation-status__modal--table-inner">
-                                <th class="reservation-status__modal--table-header">Shop</th>
-                                <td class="reservation-status__modal--table-text">
-                                    <p class="reservation-status__modal--table-text-shop">{{
-                                        $reservation->shops->shop_name }}</p>
-                                </td>
-                            </tr>
-                            <tr class="reservation-status__modal--table-inner">
-                                <th class="reservation-status__modal--table-header">Date</th>
-                                <td class="reservation-status__modal--table-text">
-                                    <input class="reservation-status__modal--table-text-date" name="date" type="date"
-                                        value="{{ $reservation->date }}">
-                                </td>
-                            </tr>
-                            <tr class="reservation-status__modal--table-inner">
-                                <th class="reservation-status__modal--table-header">Time</th>
-                                <td class="reservation-status__modal--table-text">
-                                    <input class="reservation-status__modal--table-text-time" name="time" type="time"
-                                        value="{{ $reservation->time }}">
-                                </td>
-                            </tr>
-                            <tr class="reservation-status__modal--table-inner">
-                                <th class="reservation-status__modal--table-header">Number</th>
-                                <td class="reservation-status__modal--table-text">
-                                    <input class="reservation-status__modal--table-text-number" name="number"
-                                        type="text" value="{{ $reservation->number }}">
-                                </td>
-                            </tr>
-                        </table>
-                        <div class="reservation-status__modal--button">
-                            <label class="reservation-status__modal--button-close"
-                                for="modal-toggle-{{$reservation->id}}"><i class="bi bi-reply-fill"></i></label>
-                            <button class="reservation-status__update--button-submit" type="submit">修正</button>
-                        </div>
-                    </form>
-                </div>
+                <a class="reservation-status__detail--header-update-button"
+                    href="{{ route('editReservation', $reservation->id) }}"><i class="bi bi-pencil-square"></i></a>
                 <p class="reservation-status__detail--header-ttl">予約 {{ $index + 1 }}</p>
-                <form onsubmit="return confirm('本当に削除しますか？')" action="{{route('delete_reservation')}}" method="post">
+                <form onsubmit="return confirm('本当に削除しますか？')" action="{{route('deleteReservation')}}" method="post">
                     @method('DELETE')
                     @csrf
                     <input type="hidden" name="id" value="{{$reservation->id}}">
@@ -99,13 +59,14 @@
                 <tr class="reservation-status__table--inner">
                     <th class="reservation-status__table--header">Time</th>
                     <td class="reservation-status__table--text">
-                        <p class="reservation-status__table--text-time">{{ $reservation->time }}</p>
+                        <p class="reservation-status__table--text-time">{{
+                            Carbon::parse($reservation->time)->format('H:i') }}</p>
                     </td>
                 </tr>
                 <tr class="reservation-status__table--inner">
                     <th class="reservation-status__table--header">Number</th>
                     <td class="reservation-status__table--text">
-                        <p class="reservation-status__table--text-number">{{ $reservation->number }}</p>
+                        <p class="reservation-status__table--text-number">{{ $reservation->number }}人</p>
                     </td>
                 </tr>
             </table>
@@ -116,7 +77,7 @@
                     <label for="qr-modal__toggle-{{$reservation->id}}" class="qr-modal__button--close"><i
                             class="bi bi-x-circle"></i></label>
                     <span class="qr-modal__span">
-                        {!! QrCode::size(100)->generate( $user->id/$reservation->id ); !!}
+                        {!! QrCode::size(100)->generate( $reservation->id ); !!}
                     </span>
                 </div>
             </div>
@@ -154,15 +115,11 @@
                         <div class="favorite-shop__card--button">
                             <a class="favorite-shop__card--button--link"
                                 href="{{ route('detail', $favoriteShop->id) }}">詳しくみる</a>
-                            <div class="heart">
-                                <form action="{{route('delete_favorite')}}" method="post">
-                                    @method('DELETE')
-                                    @csrf
-                                    <input type="hidden" name="id" value="{{$favoriteShop->id}}">
-                                    <button class="heart__delete-button--submit" type="submit">
-                                        <i class="bi bi-suit-heart-fill" id="heart"></i>
-                                    </button>
-                                </form>
+                            @php
+                            $isFavorite = in_array($favoriteShop->id, $favorites);
+                            @endphp
+                            <div class="heart {{ $isFavorite ? 'heart_true' : 'heart_false' }}"
+                                data-shop-id="{{ $favoriteShop->id }}"><i class="bi bi-suit-heart-fill" id="heart"></i>
                             </div>
                         </div>
                     </div>
@@ -173,4 +130,5 @@
         @endif
     </div>
 </div>
+<script src="/js/heart.js"></script>
 @endsection

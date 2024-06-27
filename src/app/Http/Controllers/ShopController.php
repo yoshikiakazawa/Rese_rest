@@ -10,7 +10,7 @@ use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
+use App\Http\Requests\ReservationRequest;
 
 class ShopController extends Controller
 {
@@ -55,11 +55,9 @@ class ShopController extends Controller
         if (Auth::check()) {
             $favorites = Favorite::where('user_id', Auth::id())->pluck('shop_id')->toArray();
         }
-
         if ($shops->isEmpty()) {
             return view('index', compact('shops', 'areas', 'genres', 'favorites'))->with('message', '検索結果がありません。');
         }
-
         return view('index', compact('shops', 'areas', 'genres', 'favorites'));
 
     }
@@ -86,11 +84,17 @@ class ShopController extends Controller
     public function detail($id)
     {
         $shop = Shop::findOrFail($id);
+        $times = [
+            '11:00', '11:30', '12:00', '12:30', '13:00', '13:30',
+            '14:00', '14:30', '15:00', '15:30', '16:00', '16:30',
+            '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
+            '20:00', '20:30', '21:00', '21:30', '22:00'
+        ];
 
-        return view('detail', compact('shop'));
+        return view('detail', compact('shop','times'));
     }
 
-    public function reservation(Request $request) {
+    public function reservation(ReservationRequest $request) {
         Reservation::create([
             'shop_id' => $request->shop_id,
             'user_id' => Auth::id(),
@@ -101,55 +105,4 @@ class ShopController extends Controller
         return view('reservation_thanks');
     }
 
-    public function myPage() {
-        $today = Carbon::now()->format('Y-m-d');
-        $currentTime = Carbon::now()->format('H:i:s');
-        $user = Auth::user();
-        $shops = Shop::with(['areas', 'genres'])->get();
-        $areas = Area::all();
-        $genres = Genre::all();
-        $reservations = Reservation::where('user_id', $user->id)
-        ->where('date','>',$today)
-        ->orWhere('date','=',$today)->get();
-        $favorites = Favorite::where('user_id', $user->id)->get();
-        $shopIds = $favorites->pluck('shop_id');
-        $favoriteShops = Shop::whereIn('id', $shopIds)->get();
-        return view('mypage', compact('user','shops', 'areas', 'genres', 'reservations', 'favoriteShops'));
-    }
-
-    public function updateReservation (Request $request) {
-        $oldReservation = Reservation::find($request->id);
-        $oldReservation->date = $request->date;
-        $oldReservation->time = $request->time;
-        $oldReservation->number = $request->number;
-        $oldReservation->save();
-        return redirect('mypage')->with('message_reservation', '修正しました。');
-    }
-
-    public function destroyReservation(Request $request)
-    {
-        Reservation::find($request->id)->delete();
-        return redirect('mypage')->with('message_reservation', 'キャンセルしました。');
-    }
-
-    public function destroyFavorite(Request $request)
-    {
-        $user = Auth::user();
-        Favorite::where('user_id', $user->id)->where('shop_id', $request->id)->delete();
-        return redirect('mypage')->with('message_favorite', 'お気に入りを解除しました。');
-    }
-
-    public function myPageHistory (){
-        $today = Carbon::now()->format('Y-m-d');
-        $currentTime = Carbon::now()->format('H:i:s');
-        $user = Auth::user();
-        $shops = Shop::with(['areas', 'genres'])->get();
-        $areas = Area::all();
-        $genres = Genre::all();
-        $reservations = Reservation::where('user_id', $user->id)
-        ->where('date','<',$today)
-        ->orWhere('date','=',$today)
-        ->where('time','<',$currentTime)->get();
-        return view ('history', compact('user','shops', 'areas', 'genres', 'reservations'));
-    }
 }

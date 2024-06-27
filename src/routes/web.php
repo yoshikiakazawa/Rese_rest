@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\UserDataController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 
 /*
@@ -19,15 +19,17 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 Route::get('/', [ShopController::class,'index']);
 Route::get('/detail/{shop_id}', [ShopController::class,'detail'])->name('detail');
 Route::get('/search', [ShopController::class,'search']);
-Route::post('/toggle-favorite', [ShopController::class,'toggleFavorite']);
-Route::post('/done', [ShopController::class,'reservation']);
+
 
 Route::middleware('auth')->group(function () {
-    Route::get('/mypage', [ShopController::class,'myPage']);
-    Route::patch('/update_reservation', [ShopController::class, 'updateReservation'])->name('update_reservation');
-    Route::delete('/delete_reservation',[ShopController::class, 'destroyReservation'])->name('delete_reservation');
-    Route::delete('/delete_favorite',[ShopController::class, 'destroyFavorite'])->name('delete_favorite');
-    Route::get('/mypage/history', [ShopController::class,'myPageHistory'])->name('history');
+    Route::post('/toggle-favorite', [ShopController::class,'toggleFavorite']);
+    Route::post('/done', [ShopController::class,'reservation']);
+    Route::get('/mypage', [UserDataController::class,'myPage'])->name('mypage');
+    Route::get('/mypage/reservation/{shop_id}', [UserDataController::class,'editReservation'])->name('editReservation');
+    Route::patch('/mypage/reservation/update', [UserDataController::class, 'updateReservation'])->name('updateReservation');
+    Route::delete('/mypage/reservation/delete',[UserDataController::class, 'destroyReservation'])->name('deleteReservation');
+    Route::get('/mypage/history', [UserDataController::class,'myPageHistory'])->name('history');
+    Route::post('/mypage/history/rank', [UserDataController::class,'rank'])->name('rank');
 });
 
 Route::get('/thanks', function () {

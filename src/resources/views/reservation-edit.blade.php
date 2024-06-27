@@ -12,10 +12,11 @@
 @component('components.nav_auth')
 @endcomponent
 @endif
+@if(Auth::check())
 <div class="content">
     <div class="detail">
         <div class="detail__ttl">
-            <a class="detail__ttl--link" href="/"><i class="bi bi-chevron-left"></i></a>
+            <a class="detail__ttl--link" href="{{ route('mypage') }}"><i class="bi bi-chevron-left"></i></a>
             <h2 class="detail__ttl--h2">{{ $shop->shop_name }}</h2>
         </div>
         <div class="detail__img">
@@ -28,16 +29,16 @@
             <p class="detail__overview--p">{{ $shop->overview }}</p>
         </div>
     </div>
-    @if(Auth::check())
-    <form class="reservation-form" action="/done" method="post">
+    <form class="reservation-form" action="{{ route('updateReservation') }}" method="post">
+        @method('PATCH')
         @csrf
-        <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+        <input type="hidden" name="id" value="{{ $reservation->id }}">
         <div class="reservation-form__content">
             <div class="reservation-form__ttl">
-                <h2 class="reservation-form__ttl--h2">予約</h2>
+                <h2 class="reservation-form__ttl--h2">予約変更</h2>
             </div>
             <div class="reservation-form__input">
-                <input type="date" name="date" id="date">
+                <input type="date" name="date" id="date" value="{{$reservation->date}}">
                 @error('date')
                 <div class="reservation-form__error">
                     {{$message}}
@@ -47,7 +48,7 @@
             <div class="reservation-form__select">
                 <select name="time" id="time">
                     @foreach ($times as $time)
-                    <option value="{{ $time }}" {{ old('time')==$time ? 'selected' : '' }}>
+                    <option value="{{ $time }}" {{ $formattedTime==$time ? 'selected' : '' }}>
                         {{ $time }}
                     </option>
                     @endforeach
@@ -60,7 +61,8 @@
             </div>
             <div class="reservation-form__select">
                 <select name="number" id="number">
-                    @for ($i = 1; $i <= 20; $i++) <option value="{{ $i }}" {{ old('number')=="$i" ? 'selected' : '' }}>
+                    @for ($i = 1; $i <= 20; $i++) <option value="{{ $i }}" {{ $reservation->number ==
+                        "$i" ? 'selected' : '' }}>
                         {{ $i }}人
                         </option>
                         @endfor
@@ -101,10 +103,10 @@
             </div>
         </div>
         <div class="reservation-form__btn">
-            <button class="reservation-form__btn--submit" type="submit">予約する</button>
+            <button class="reservation-form__btn--submit" type="submit">修正する</button>
         </div>
     </form>
-    @endif
 </div>
-<script src="/js/reservation.js" defer></script>
+<script src="/js/edit.js" defer></script>
+@endif
 @endsection

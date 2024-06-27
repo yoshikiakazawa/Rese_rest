@@ -50,6 +50,15 @@
     height: 1em;
 }
 
+.history__ttl--link {
+    color: black;
+    padding: 4px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+    margin-right: 10px;
+    font-size: 24px;
+}
+
 .history__ttl--empty-message {
     padding: 24px 0;
     font-weight: normal;
@@ -80,6 +89,11 @@
     margin-bottom: 1.5em;
     display: flex;
     justify-content: space-between;
+}
+
+.history__detail--modal {
+    display: flex;
+    align-items: center;
 }
 
 .history__modal--button {
@@ -126,6 +140,7 @@
 .history__modal--button-label {
     cursor: pointer;
     font-size: 24px;
+    margin-left: 4px;
 }
 
 .modal-toggle {
@@ -178,7 +193,9 @@
 }
 
 @media screen and (max-width: 768px) {
-    .history__ttl {
+
+    .history__ttl,
+    .history__ttl--link {
         font-size: 20px;
     }
 
