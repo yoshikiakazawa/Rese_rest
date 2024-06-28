@@ -35,7 +35,7 @@ use Carbon\Carbon;
                 <a class="reservation-status__detail--header-update-button"
                     href="{{ route('editReservation', $reservation->id) }}"><i class="bi bi-pencil-square"></i></a>
                 <p class="reservation-status__detail--header-ttl">予約 {{ $index + 1 }}</p>
-                <form onsubmit="return confirm('本当に削除しますか？')" action="{{route('deleteReservation')}}" method="post">
+                <form onsubmit="return confirm('本当に削除しますか？')" action="{{route('destroyReservation')}}" method="post">
                     @method('DELETE')
                     @csrf
                     <input type="hidden" name="id" value="{{$reservation->id}}">

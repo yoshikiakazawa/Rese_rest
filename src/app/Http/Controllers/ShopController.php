@@ -6,11 +6,8 @@ use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Genre;
 use App\Models\Favorite;
-use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests\ReservationRequest;
 
 class ShopController extends Controller
 {
@@ -93,16 +90,4 @@ class ShopController extends Controller
 
         return view('detail', compact('shop','times'));
     }
-
-    public function reservation(ReservationRequest $request) {
-        Reservation::create([
-            'shop_id' => $request->shop_id,
-            'user_id' => Auth::id(),
-            'date' => $request->date,
-            'time' => $request->time,
-            'number' => $request->number,
-        ]);
-        return view('reservation_thanks');
-    }
-
 }

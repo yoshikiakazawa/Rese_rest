@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserDataController;
+use App\Http\Controllers\ReservationController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 
 /*
@@ -23,11 +24,11 @@ Route::get('/search', [ShopController::class,'search']);
 
 Route::middleware('auth')->group(function () {
     Route::post('/toggle-favorite', [ShopController::class,'toggleFavorite']);
-    Route::post('/done', [ShopController::class,'reservation']);
+    Route::post('/done', [ReservationController::class,'thanks']);
     Route::get('/mypage', [UserDataController::class,'myPage'])->name('mypage');
-    Route::get('/mypage/reservation/{shop_id}', [UserDataController::class,'editReservation'])->name('editReservation');
-    Route::patch('/mypage/reservation/update', [UserDataController::class, 'updateReservation'])->name('updateReservation');
-    Route::delete('/mypage/reservation/delete',[UserDataController::class, 'destroyReservation'])->name('deleteReservation');
+    Route::get('/reservation/{shop_id}', [ReservationController::class,'edit'])->name('editReservation');
+    Route::patch('/reservation/update', [ReservationController::class, 'update'])->name('updateReservation');
+    Route::delete('/reservation/destroy',[ReservationController::class, 'destroy'])->name('destroyReservation');
     Route::get('/mypage/history', [UserDataController::class,'myPageHistory'])->name('history');
     Route::post('/mypage/history/rank', [UserDataController::class,'rank'])->name('rank');
 });
