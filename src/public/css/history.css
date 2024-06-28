@@ -85,10 +85,15 @@
 }
 
 .history__detail--header {
-    font-size: 20px;
     margin-bottom: 1.5em;
     display: flex;
     justify-content: space-between;
+}
+
+.history__detail--header-ttl,
+.history__detail--checked,
+.history__modal--button-label {
+    font-size: 20px;
 }
 
 .history__detail--modal {
@@ -209,7 +214,9 @@
         padding: 5%;
     }
 
-    .history__detail--header {
+    .history__detail--header-ttl,
+    .history__detail--checked,
+    .history__modal--button-label {
         font-size: 18px;
     }
 
